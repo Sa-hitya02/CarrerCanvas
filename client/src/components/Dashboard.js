@@ -16,8 +16,8 @@ function Dashboard() {
   const fetchPortfolio = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('/api/portfolio/me', {
-        headers: { 'x-auth-token': token }
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/portfolio/me`, {
+         headers: { 'x-auth-token': token }
       });
       setPortfolio(response.data);
       setLoading(false);

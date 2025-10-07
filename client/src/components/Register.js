@@ -34,11 +34,14 @@ function Register() {
         }
 
         try {
-            const response = await axios.post('/api/auth/register', {
-                name: formData.name,
-                email: formData.email,
-                password: formData.password
-            });
+            const response = await axios.post(
+            `${process.env.REACT_APP_API_URL}/api/auth/register`,
+            {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password
+          });
+
             login(response.data.token, response.data.user);
             navigate('/dashboard');
         } catch (error) {

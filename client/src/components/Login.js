@@ -19,7 +19,7 @@ function Login() {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('/api/auth/login', formData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, formData);
       login(response.data.token, response.data.user);
       navigate('/dashboard');
     } catch (error) {

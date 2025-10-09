@@ -5,8 +5,17 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// ===== CORS SETUP (KEEP ONLY THIS! DELETE/REPLACE ANY OLD app.use(cors())) =====
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://carrercanvas-frontend.onrender.com" // <-- Your actual deployed frontend domain
+];
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+// ==============================================================================
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -16,6 +25,7 @@ mongoose.connect(process.env.MONGO_URI, {
 })
 .then(() => console.log('✅ MongoDB Atlas Connected Successfully'))
 .catch((err) => console.error('❌ MongoDB Connection Error:', err));
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/portfolio', require('./routes/portfolio'));

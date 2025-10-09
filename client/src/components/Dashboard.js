@@ -10,25 +10,28 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  console.log("Dashboard useEffect: user", user);
-  fetchPortfolio();
-}, []);
+  if (user) {
+    fetchPortfolio();
+  }
+}, [user]);
+
 
 const fetchPortfolio = async () => {
+  const token = localStorage.getItem('token');
+  if (!token) return; // Stop if no token
+
   try {
-    const token = localStorage.getItem('token');
-    console.log("Token retrieved:", token);
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/portfolio/me`, {
       headers: { 'x-auth-token': token }
     });
-    console.log("Portfolio API response:", response.data);
     setPortfolio(response.data);
-    setLoading(false);
   } catch (error) {
     console.log('Portfolio fetch error:', error);
+  } finally {
     setLoading(false);
   }
 };
+
 
   const calculateProgress = () => {
     if (!portfolio) return 0;
@@ -42,7 +45,7 @@ const fetchPortfolio = async () => {
     return progress;
   };
 
-  const isEmptyPortfolio = () => {
+    const isEmptyPortfolio = () => {
     if (!portfolio) return true;
     return !portfolio.professionalTitle &&
       !portfolio.bio &&

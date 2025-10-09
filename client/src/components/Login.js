@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -15,19 +15,26 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, formData);
-      login(response.data.token, response.data.user);
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.response?.data?.message || 'Login failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+  e.preventDefault();
+  setLoading(true);
+  setError('');
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, formData);
+    
+    // ADD DEBUG LOGS!
+    console.log("FULL RESPONSE:", response.data);
+    console.log("TOKEN:", response.data.token);
+    console.log("USER:", response.data.user); // adjust if your backend uses e.g. userData, profile, etc.
+    
+    login(response.data.token, response.data.user); // <-- This is what to change if key differs!
+    navigate('/dashboard');
+  } catch (error) {
+    setError(error.response?.data?.message || 'Login failed');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div style={{

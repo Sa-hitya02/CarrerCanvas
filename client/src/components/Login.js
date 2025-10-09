@@ -120,7 +120,7 @@ function Login() {
               style={{ width: '100%', marginBottom: "1rem", background: "#1e293b" }}
               disabled={loading}
             >
-              {loading ? 'Logging in...' : 'Create Account'}
+              {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
           <p style={{ textAlign: 'center', fontSize: '0.85rem', color: '#64748b' }}>

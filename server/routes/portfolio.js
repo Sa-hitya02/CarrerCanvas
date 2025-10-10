@@ -142,7 +142,7 @@ router.get('/:userId', async (req, res) => {
     try {
         console.log('Fetching portfolio for userId:', req.params.userId); // Debug log
         const user = await User.findById(req.params.userId).select('-password -email');
-        console.log('Found user:', user ? 'Yes' : 'No'); // Debug log
+        
         
         if (!user) {
             return res.status(404).json({ message: 'Portfolio not found' });

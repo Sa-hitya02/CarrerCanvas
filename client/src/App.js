@@ -12,8 +12,7 @@ import './index.css';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <AuthProvider>      <Router>
         <div className="App">
           <Navbar />
           <Routes>
